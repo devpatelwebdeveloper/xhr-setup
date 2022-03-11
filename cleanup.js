@@ -72,21 +72,32 @@ const modalButton = (modalBtn) => {
     };
   }
 };
+
+// Trial Modal
+const trialModalUpdater = () => {
+  const trialBtn = document.querySelector("[class*='trialButton']")
+    .childNodes[0].childNodes[0];
+  const trialBuyBtn = document.querySelector("[class*='buyButton']")
+    .childNodes[0].childNodes[0];
+  getData(trialBuyBtn);
+};
+
 //Inital Modal Setup
 modalButton(modalEasyStartBtnID);
 modalButton(modalEssentialsBtnID);
 modalButton(modalPlusBtnID);
 const buyModalObserver = new MutationObserver((mutationRecords) => {
-  // checkButton(easyStartCard);  // Use this when Direct Pricing Card
-  modalButton(modalEasyStartBtnID);
-  modalButton(modalEssentialsBtnID);
-  modalButton(modalPlusBtnID);
+  if (document.querySelector("[class*='trialButton']")) {
+    trialModalUpdater();
+  } else {
+    modalButton(modalEasyStartBtnID);
+    modalButton(modalEssentialsBtnID);
+    modalButton(modalPlusBtnID);
+  }
 });
 buyModalObserver.observe(document.body, {
   childList: true
 });
-
-// Trial Modal
 
 // Payroll Toggle
 const easyStartCard = document.getElementById(
